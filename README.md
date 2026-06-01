@@ -1,96 +1,237 @@
 # 🏦 RiskSense AI — Explainable Credit Risk Prediction
 
-> Predict loan default probability with full SHAP explainability.
-> Built on 150,000 real applicants using Random Forest + SHAP + Streamlit.
+### Predict loan default risk with transparent AI-powered explanations
 
-🚀 **Live Demo:** [Add HuggingFace link here]
+RiskSense AI is an end-to-end Machine Learning application that predicts the probability of a borrower defaulting on a loan within two years and explains the prediction using SHAP Explainable AI.
+
+Built using real-world credit data from 150,000+ applicants, the project demonstrates the complete ML lifecycle—from data preprocessing and model development to explainability, reporting, and deployment.
+
+---
+
+## 🚀 Live Demo
+
+🔗 **Application:** *Add Hugging Face URL Here*
+
 📁 **Dataset:** [Give Me Some Credit — Kaggle](https://kaggle.com/c/GiveMeSomeCredit)
 
 ---
 
-## What It Does
+## 📌 Business Problem
 
-RiskSense AI assesses the probability that a loan applicant will default
-within 2 years — and explains *why*, using SHAP explainability.
+Financial institutions lose millions due to loan defaults.
 
-- Input 10 applicant details via an interactive form
-- Get an instant risk score (0–100%) with animated gauge
-- See a SHAP waterfall chart showing which features drove the prediction
-- Download a professional PDF report per applicant
-- Explore model performance on the dashboard
+Traditional credit scoring systems often provide little transparency regarding why an applicant is considered high-risk, making decision-making difficult for both analysts and customers.
 
----
+RiskSense AI addresses this challenge by:
 
-## Demo
-
-| Low Risk Applicant | High Risk Applicant |
-|---|---|
-| Age 52, Income $8000, No late payments | Age 35, Income $2500, 7 late payments |
-| **Risk Score: 10.1%** ✅ | **Risk Score: 89.5%** 🚨 |
+* Predicting default probability in real time
+* Highlighting key risk-driving factors
+* Providing explainable and auditable decisions
+* Generating professional downloadable reports
 
 ---
 
-## Tech Stack
+## ✨ Features
 
-| Layer | Tools |
-|---|---|
-| Data & EDA | Pandas, NumPy, Plotly |
-| Preprocessing | Scikit-learn, imbalanced-learn (SMOTE) |
-| Modelling | Random Forest, XGBoost, Logistic Regression |
-| Explainability | SHAP (TreeExplainer) |
-| App | Streamlit, Plotly |
-| PDF Reports | ReportLab |
-| Deployment | HuggingFace Spaces |
+### 🔍 Credit Risk Prediction
 
----
+Predict the likelihood of default within two years using a trained Random Forest model.
 
-## Model Performance
+### 📈 Explainable AI (SHAP)
 
-| Metric | Score |
-|---|---|
-| AUC-ROC | 0.8496 |
-| Default Recall | 68% |
-| Safe Borrower Precision | 97% |
-| Training Samples (after SMOTE) | 223,956 |
+Understand exactly why a prediction was made through feature-level explanations.
 
-> Model chosen based on **recall** on the default class — in banking,
-> missing a real defaulter costs more than a false alarm.
+### 🎯 Risk Score Dashboard
+
+View borrower risk on an intuitive probability gauge ranging from 0–100%.
+
+### 📄 PDF Report Generation
+
+Generate professional applicant risk assessment reports instantly.
+
+### 📊 Model Analytics
+
+Explore performance metrics, feature importance, and evaluation visualizations.
 
 ---
 
-## Project Structure
+## 🖥️ Application Workflow
 
+1. Enter applicant information through the Streamlit interface.
+2. Model calculates default probability.
+3. Risk score is displayed on an interactive gauge.
+4. SHAP analysis explains prediction drivers.
+5. PDF report can be downloaded for record keeping.
+
+---
+
+## 📸 Example Predictions
+
+| Scenario                                | Result               |
+| --------------------------------------- | -------------------- |
+| Age 52, Income $8,000, No late payments | ✅ Low Risk (10.1%)   |
+| Age 35, Income $2,500, 7 late payments  | 🚨 High Risk (89.5%) |
+
+---
+
+## 🏗️ Machine Learning Pipeline
+
+### Data Preparation
+
+* Missing value treatment
+* Outlier handling
+* Feature engineering
+* Feature scaling
+* Train-test split
+
+### Class Imbalance Handling
+
+Applied **SMOTE** exclusively on training data to improve minority class detection.
+
+### Models Evaluated
+
+* Logistic Regression
+* Random Forest
+* XGBoost
+
+### Model Selection Strategy
+
+For credit risk applications, identifying true defaulters is more critical than maximizing overall accuracy.
+
+Therefore, model selection prioritized:
+
+* Recall on the default class
+* ROC-AUC score
+* Business impact of missed defaults
+
+Random Forest delivered the best balance between predictive power and explainability.
+
+---
+
+## 📊 Model Performance
+
+| Metric                       | Score       |
+| ---------------------------- | ----------- |
+| ROC-AUC                      | **0.8496**  |
+| Default Recall               | **68%**     |
+| Safe Borrower Precision      | **97%**     |
+| Training Samples After SMOTE | **223,956** |
+
+### Why Recall Matters
+
+In lending, failing to identify a genuine defaulter can lead to substantial financial losses.
+
+A false positive may reject a good applicant, but a false negative can result in a defaulted loan.
+
+Therefore, recall was treated as the primary optimization metric.
+
+---
+
+## 🧠 Explainable AI
+
+The project uses SHAP (SHapley Additive exPlanations) to provide local interpretability for every prediction.
+
+For each applicant:
+
+* Positive contributors to risk are highlighted
+* Negative contributors to risk are highlighted
+* Individual feature impacts are quantified
+* Waterfall visualizations explain model decisions
+
+This creates a transparent and auditable prediction process.
+
+---
+
+## 🛠️ Tech Stack
+
+| Category            | Technologies          |
+| ------------------- | --------------------- |
+| Programming         | Python                |
+| Data Analysis       | Pandas, NumPy         |
+| Visualization       | Plotly                |
+| Machine Learning    | Scikit-learn, XGBoost |
+| Imbalanced Learning | SMOTE                 |
+| Explainability      | SHAP                  |
+| Web App             | Streamlit             |
+| Reporting           | ReportLab             |
+| Deployment          | Hugging Face Spaces   |
+
+---
+
+## 📂 Project Structure
+
+```text
 risksense-ai/
+│
 ├── app/
-│   ├── main.py              ← Streamlit app (3 tabs)
-│   ├── predictor.py         ← Model loading + prediction logic
-│   ├── visualisations.py    ← Plotly gauge, SHAP waterfall, charts
-│   └── report.py            ← PDF report generator (ReportLab)
+│   ├── main.py
+│   ├── predictor.py
+│   ├── visualisations.py
+│   └── report.py
+│
 ├── notebooks/
-│   ├── 01_eda.ipynb          ← Exploratory data analysis
-│   ├── 02_preprocessing.ipynb ← SMOTE, imputation, feature engineering
-│   ├── 03_modelling.ipynb    ← Train + compare 3 models
-│   └── 04_shap_analysis.ipynb ← SHAP explainability
+│   ├── 01_eda.ipynb
+│   ├── 02_preprocessing.ipynb
+│   ├── 03_modelling.ipynb
+│   └── 04_shap_analysis.ipynb
+│
+├── data/
+├── models/
 ├── requirements.txt
 └── README.md
+```
 
 ---
 
-## Setup
+## ⚙️ Installation
+
+Clone the repository:
 
 ```bash
-git clone https://github.com/rud11fadte/risksense-ai
+git clone https://github.com/rud11fadate/risksense-ai.git
 cd risksense-ai
+```
+
+Create and activate a virtual environment:
+
+```bash
 python -m venv venv
-venv\Scripts\activate        # Windows
-source venv/bin/activate     # Mac/Linux
+
+# Windows
+venv\Scripts\activate
+
+# Mac/Linux
+source venv/bin/activate
+```
+
+Install dependencies:
+
+```bash
 pip install -r requirements.txt
 ```
 
-Download dataset from [Kaggle](https://kaggle.com/c/GiveMeSomeCredit)
-and place `cs-training.csv` in `data/`
+Download the Kaggle dataset and place:
 
-Run notebooks 01 → 02 → 03 → 04 in order to generate model files, then:
+```text
+cs-training.csv
+```
+
+inside:
+
+```text
+data/
+```
+
+Run notebooks in order:
+
+```text
+01_eda.ipynb
+02_preprocessing.ipynb
+03_modelling.ipynb
+04_shap_analysis.ipynb
+```
+
+Launch the application:
 
 ```bash
 streamlit run app/main.py
@@ -98,25 +239,40 @@ streamlit run app/main.py
 
 ---
 
-## Key Concepts Demonstrated
+## 🎯 Skills Demonstrated
 
-- **Class imbalance handling** — SMOTE oversampling on training data only
-- **Feature engineering** — 4 engineered features, 3 in top 5 importance
-- **Model selection reasoning** — recall prioritised over F1 for banking context
-- **Explainable AI** — SHAP TreeExplainer for individual predictions
-- **Production patterns** — model persistence with joblib, scaler saved separately
-- **End-to-end deployment** — from raw CSV to live deployable app
-
----
-
-## Skills Demonstrated
-
-`Python` `Machine Learning` `Random Forest` `XGBoost` `SHAP` 
-`Feature Engineering` `SMOTE` `Plotly` `Streamlit` `ReportLab`
-`Pandas` `NumPy` `Scikit-learn` `Joblib` `HuggingFace`
+* Machine Learning
+* Credit Risk Analytics
+* Feature Engineering
+* Class Imbalance Handling (SMOTE)
+* Model Evaluation & Selection
+* Explainable AI (SHAP)
+* Streamlit Development
+* Interactive Data Visualization
+* PDF Report Automation
+* Model Deployment
 
 ---
 
-*MSc Data Science Portfolio Project | BSc Mathematics*  
-*[LinkedIn](www.linkedin.com/in/rudresh-fadate) · 
-[GitHub](https://github.com/rud11fadte)*
+## 📚 Key Learnings
+
+* Building interpretable ML systems for high-stakes domains
+* Balancing business objectives with model metrics
+* Applying SHAP for model transparency
+* Deploying production-ready ML applications
+* Designing end-to-end data science solutions
+
+---
+
+## 👨‍💻 Author
+
+**Rudresh Fadate**
+
+MSc Data Science | BSc Mathematics
+
+* GitHub: https://github.com/rud11fadate
+* LinkedIn: https://www.linkedin.com/in/rudresh-fadate
+
+---
+
+⭐ If you found this project useful, consider giving the repository a star.
