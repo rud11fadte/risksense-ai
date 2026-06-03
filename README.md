@@ -16,6 +16,22 @@ Built using real-world credit data from 150,000+ applicants, the project demonst
 
 ---
 
+## 📸 Screenshots
+
+### Applicant Input Form
+![Input Form](screenshot_input.png)
+
+### 🚨 High Risk Prediction
+![High Risk](screenshot_high_risk.png)
+
+### ✅ Low Risk Prediction
+![Low Risk](screenshot_low_risk.png)
+
+### 📊 Model Dashboard
+![Dashboard](screenshot_dashboard.png)
+
+---
+
 ## 📌 Business Problem
 
 Financial institutions lose millions due to loan defaults.
