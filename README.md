@@ -10,7 +10,7 @@ Built using real-world credit data from 150,000+ applicants, the project demonst
 
 ## 🚀 Live Demo
 
-🔗 **Application:** *Add Hugging Face URL Here*
+🔗 **Application:** https://huggingface.co/spaces/rud11fadte/risksense-ai
 
 📁 **Dataset:** [Give Me Some Credit — Kaggle](https://kaggle.com/c/GiveMeSomeCredit)
 
