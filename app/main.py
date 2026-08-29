@@ -155,20 +155,28 @@ with tab1:
     # ════════════════════════════════════════════════════
     if predict_btn:
 
-        with st.spinner("Analysing applicant profile..."):
+        try:
+            with st.spinner("Analysing applicant profile..."):
 
-            result = predict(
-                revolving,
-                age,
-                late_30_59,
-                debt_ratio,
-                income,
-                open_credit,
-                late_90,
-                real_estate,
-                late_60_89,
-                dependents
+                result = predict(
+                    revolving,
+                    age,
+                    late_30_59,
+                    debt_ratio,
+                    income,
+                    open_credit,
+                    late_90,
+                    real_estate,
+                    late_60_89,
+                    dependents
+                )
+        except FileNotFoundError as exc:
+            st.error(str(exc))
+            st.warning(
+                "Run the notebooks in order to generate the trained model files before using the prediction form: "
+                "02_preprocessing.ipynb → 03_modelling.ipynb → 04_shap_analysis.ipynb"
             )
+            st.stop()
 
 
         # ── SAVE PREDICTION TO HISTORY ────────────────────────

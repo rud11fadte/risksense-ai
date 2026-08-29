@@ -6,12 +6,37 @@ import os
 # Load all models once when app starts
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MODELS = os.path.join(BASE, 'models')
+REQUIRED_FILES = [
+    'best_model.pkl',
+    'scaler.pkl',
+    'feature_names.pkl',
+    'model_metrics.pkl',
+    'shap_explainer.pkl'
+]
 
-model         = joblib.load(os.path.join(MODELS, 'best_model.pkl'))
-scaler        = joblib.load(os.path.join(MODELS, 'scaler.pkl'))
-feature_names = joblib.load(os.path.join(MODELS, 'feature_names.pkl'))
-model_metrics = joblib.load(os.path.join(MODELS, 'model_metrics.pkl'))
-explainer     = joblib.load(os.path.join(MODELS, 'shap_explainer.pkl'))
+missing_files = [
+    name for name in REQUIRED_FILES
+    if not os.path.exists(os.path.join(MODELS, name))
+]
+
+if missing_files:
+    model = None
+    scaler = None
+    feature_names = None
+    model_metrics = None
+    explainer = None
+    MISSING_MODEL_MESSAGE = (
+        "Missing trained model artifacts in the 'models' folder. "
+        "Please run the preprocessing, modelling, and SHAP notebooks first "
+        "to generate: " + ", ".join(missing_files)
+    )
+else:
+    model = joblib.load(os.path.join(MODELS, 'best_model.pkl'))
+    scaler = joblib.load(os.path.join(MODELS, 'scaler.pkl'))
+    feature_names = joblib.load(os.path.join(MODELS, 'feature_names.pkl'))
+    model_metrics = joblib.load(os.path.join(MODELS, 'model_metrics.pkl'))
+    explainer = joblib.load(os.path.join(MODELS, 'shap_explainer.pkl'))
+    MISSING_MODEL_MESSAGE = None
 
 
 def build_input(revolving, age, late_30_59, debt_ratio,
@@ -39,6 +64,9 @@ def predict(revolving, age, late_30_59, debt_ratio,
             income, open_credit, late_90, real_estate,
             late_60_89, dependents):
     """Run prediction and return full result dict."""
+
+    if model is None or scaler is None or feature_names is None or explainer is None:
+        raise FileNotFoundError(MISSING_MODEL_MESSAGE)
 
     df_raw, df_scaled = build_input(
         revolving, age, late_30_59, debt_ratio,
